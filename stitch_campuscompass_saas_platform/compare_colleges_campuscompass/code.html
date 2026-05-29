@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Compare Colleges | CampusCompass</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=geist:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        @font-face {
+            font-family: 'geist';
+            src: url('https://cdn.jsdelivr.net/font/geist/latest/geist-regular.woff2') format('woff2');
+        }
+        body {
+            font-family: 'geist', sans-serif;
+            background-color: #09090b; /* Base Level 0 from Style Guidance */
+            color: #e7e0ed;
+        }
+        .glass-card {
+            background: #18181b; /* Level 1 */
+            border: 1px solid #27272a;
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+        }
+        .glow-accent-purple {
+            box-shadow: 0 0 20px -5px rgba(208, 188, 255, 0.1);
+        }
+        .glow-accent-cyan {
+            box-shadow: 0 0 20px -5px rgba(76, 215, 246, 0.1);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .best-value-pill {
+            background: rgba(208, 188, 255, 0.1);
+            border: 1px solid rgba(208, 188, 255, 0.2);
+            color: #d0bcff;
+        }
+        /* Custom scrollbar for the table */
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0f0d15;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #494454;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-bright": "#3b3742",
+                      "surface-container": "#211e27",
+                      "on-error": "#690005",
+                      "on-primary-fixed-variant": "#5516be",
+                      "secondary-fixed-dim": "#4cd7f6",
+                      "on-error-container": "#ffdad6",
+                      "secondary-container": "#03b5d3",
+                      "on-surface-variant": "#cbc3d7",
+                      "on-primary-fixed": "#23005c",
+                      "background": "#15121b",
+                      "surface-variant": "#37333d",
+                      "inverse-primary": "#6d3bd7",
+                      "on-secondary-fixed-variant": "#004e5c",
+                      "on-surface": "#e7e0ed",
+                      "outline": "#958ea0",
+                      "error-container": "#93000a",
+                      "primary-fixed": "#e9ddff",
+                      "on-tertiary": "#482900",
+                      "surface-tint": "#d0bcff",
+                      "surface-container-low": "#1d1a23",
+                      "on-tertiary-fixed": "#2c1700",
+                      "surface-container-lowest": "#0f0d15",
+                      "outline-variant": "#494454",
+                      "on-primary": "#3c0091",
+                      "on-secondary": "#003640",
+                      "secondary-fixed": "#acedff",
+                      "on-secondary-container": "#00424e",
+                      "inverse-surface": "#e7e0ed",
+                      "tertiary": "#ffb869",
+                      "tertiary-container": "#ca801e",
+                      "on-tertiary-container": "#3f2300",
+                      "on-secondary-fixed": "#001f26",
+                      "surface-dim": "#15121b",
+                      "surface-container-highest": "#37333d",
+                      "surface": "#15121b",
+                      "secondary": "#4cd7f6",
+                      "primary": "#d0bcff",
+                      "error": "#ffb4ab",
+                      "inverse-on-surface": "#322f39",
+                      "on-background": "#e7e0ed",
+                      "on-primary-container": "#340080",
+                      "tertiary-fixed": "#ffdcbb",
+                      "primary-container": "#a078ff",
+                      "primary-fixed-dim": "#d0bcff",
+                      "tertiary-fixed-dim": "#ffb869",
+                      "surface-container-high": "#2c2832",
+                      "on-tertiary-fixed-variant": "#673d00"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xl": "80px",
+                      "xs": "8px",
+                      "lg": "48px",
+                      "base": "4px",
+                      "margin-mobile": "16px",
+                      "sm": "16px",
+                      "margin-desktop": "32px",
+                      "md": "24px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "headline-md": ["geist"],
+                      "headline-lg-mobile": ["geist"],
+                      "body-lg": ["geist"],
+                      "label-md": ["geist"],
+                      "body-md": ["geist"],
+                      "label-sm": ["geist"],
+                      "headline-lg": ["geist"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                      "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "headline-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+              }
+            },
+          }
+        }
+      </script>
+</head>
+<body class="bg-background selection:bg-primary/30">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface-container/80 backdrop-blur-md border-b border-outline-variant/20 shadow-sm h-20">
+<div class="flex justify-between items-center px-margin-desktop h-full w-full max-w-screen-2xl mx-auto">
+<div class="text-headline-md font-headline-lg font-bold text-on-surface tracking-tight">CampusCompass</div>
+<div class="hidden md:flex items-center gap-lg">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 text-label-md font-label-md" href="#">Colleges</a>
+<a class="text-primary font-semibold border-b-2 border-primary pb-1 text-label-md font-label-md" href="#">Compare</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 text-label-md font-label-md" href="#">Saved</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 text-label-md font-label-md" href="#">About</a>
+</div>
+<div class="flex items-center gap-sm">
+<button class="px-md py-xs text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md">Login</button>
+<button class="px-md py-xs bg-primary-container text-on-primary-container rounded-lg font-label-md text-label-md hover:opacity-90 active:scale-95 transition-all">Get Started</button>
+</div>
+</div>
+</nav>
+<!-- SideNavBar (Hidden on desktop for this view, relevant for dashboard apps) -->
+<!-- Removed for focus on Comparison Canvas per Rule -->
+<main class="pt-32 pb-xl px-margin-mobile md:px-margin-desktop max-w-screen-2xl mx-auto">
+<!-- Hero Selection Section -->
+<section class="mb-xl text-center md:text-left">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-lg">
+<div>
+<h1 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg text-on-surface mb-xs">Compare Institutions</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-2xl">Make data-driven decisions by comparing up to 3 top-tier colleges side-by-side with our precision analytics tools.</p>
+</div>
+<div class="flex gap-xs">
+<button class="flex items-center gap-xs px-md py-xs glass-card rounded-lg hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]">share</span>
+<span class="text-label-md font-label-md">Share Comparison</span>
+</button>
+</div>
+</div>
+<!-- College Selector Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Slot 1 -->
+<div class="glass-card p-md rounded-xl border-primary/40 glow-accent-purple relative group">
+<div class="flex items-center gap-md">
+<div class="w-16 h-16 rounded-lg bg-surface-container-high flex items-center justify-center">
+<img class="w-10 h-10 object-contain grayscale group-hover:grayscale-0 transition-all" data-alt="A minimalist, professional corporate logo for Stanford University presented on a clean white background. The style is sharp and modern, with a high-contrast aesthetic that fits a sophisticated developer-centric SaaS platform. Lighting is even and neutral, suggesting a premium academic identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKQJhLOpnt1ml1cr7hDVSVNhDbHfFGjNY0K_ooWjGfPWLseT3wnmm47cdPP7dum4a9zsNGkbvlfnvyuAEDEUWYF_hmxpoTF2CDDwffJnloT72QPLnOo46Uo4rAsjN07v8hwbt-lmC5MVUAUw40u2LSpvcULRNSIiEI7fCDWVKYHHSuPPA223sMh2-7nbqKyMOqx_nlgyF4G8tUlyi4DEw0YiGdUoVgoGIqSgzPT1ZV2FUMoYhtC-B8ZmiI6ti5piG1uYaw-McLFYw"/>
+</div>
+<div class="text-left">
+<span class="text-label-sm font-label-sm text-primary uppercase tracking-widest">Selected 1</span>
+<h3 class="text-headline-md font-headline-md text-on-surface">Stanford University</h3>
+</div>
+</div>
+<button class="absolute top-md right-md text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Slot 2 -->
+<div class="glass-card p-md rounded-xl border-secondary/40 glow-accent-cyan relative group">
+<div class="flex items-center gap-md">
+<div class="w-16 h-16 rounded-lg bg-surface-container-high flex items-center justify-center">
+<img class="w-10 h-10 object-contain grayscale group-hover:grayscale-0 transition-all" data-alt="The official logo of the Massachusetts Institute of Technology, MIT, rendered in a crisp digital format. The design is geometric and modern, evoking a sense of engineering precision and technological innovation. The colors are deep blacks and whites to match a high-performance SaaS dashboard aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_Y0GRqTaoxJImt-0Fe-o7hMTz2_RtE2OGdS-pndTJ0Q_5HsOyln8MXu1FK6rbdZO7KVmbRlkRHg-9bYAsl0rqbBN_VYGZtLTIxqG9YxB485xmnIMd4rRMsAJ9qcNqtxybm6IpR2xV3W-ZV27D7NYJFyspQbpNXSpeWckhDIItx2cIsIUiCqG97paraqwNdoTre2Z5jZhc1__GAaP8XOC8IjPazWukvboXALiOxZVCcI859hPwCUJP8WCXoZ5BY-JD8B0bS_X5p3Q"/>
+</div>
+<div class="text-left">
+<span class="text-label-sm font-label-sm text-secondary uppercase tracking-widest">Selected 2</span>
+<h3 class="text-headline-md font-headline-md text-on-surface">MIT</h3>
+</div>
+</div>
+<button class="absolute top-md right-md text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Empty Slot 3 -->
+<div class="border-2 border-dashed border-outline-variant/30 rounded-xl p-md flex flex-col items-center justify-center gap-xs hover:border-primary/50 transition-all cursor-pointer group">
+<div class="w-12 h-12 rounded-full bg-surface-container-low flex items-center justify-center group-hover:bg-primary-container/20 transition-colors">
+<span class="material-symbols-outlined text-primary">add</span>
+</div>
+<span class="text-label-md font-label-md text-on-surface-variant">Add College to Compare</span>
+</div>
+</div>
+</section>
+<!-- Interactive Comparison Table -->
+<section class="glass-card rounded-xl overflow-hidden shadow-2xl">
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left border-collapse min-w-[800px]">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="p-md text-label-sm font-label-sm text-outline uppercase tracking-widest w-1/4">Metric</th>
+<th class="p-md text-label-sm font-label-sm text-outline uppercase tracking-widest">Stanford University</th>
+<th class="p-md text-label-sm font-label-sm text-outline uppercase tracking-widest">MIT</th>
+<th class="p-md text-label-sm font-label-sm text-outline text-center uppercase tracking-widest italic">— Empty —</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<!-- Fees Row -->
+<tr class="group hover:bg-surface-variant/20 transition-colors">
+<td class="p-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">payments</span>
+<span class="text-body-md font-body-md text-on-surface">Tuition Fees (Annual)</span>
+</div>
+</td>
+<td class="p-md text-body-md font-body-md text-on-surface-variant">$56,169</td>
+<td class="p-md">
+<div class="flex items-center gap-sm">
+<span class="text-body-md font-body-md text-on-surface">$53,450</span>
+<span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold best-value-pill">Best Value</span>
+</div>
+</td>
+<td class="p-md text-center text-outline-variant">—</td>
+</tr>
+<!-- Rating Row -->
+<tr class="group hover:bg-surface-variant/20 transition-colors">
+<td class="p-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">grade</span>
+<span class="text-body-md font-body-md text-on-surface">Student Rating</span>
+</div>
+</td>
+<td class="p-md">
+<div class="flex items-center gap-sm">
+<div class="flex items-center gap-1">
+<span class="text-body-md font-body-md text-on-surface">4.9</span>
+<span class="material-symbols-outlined text-tertiary text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold best-value-pill">Top Rated</span>
+</div>
+</td>
+<td class="p-md text-body-md font-body-md text-on-surface-variant">
+<div class="flex items-center gap-1">
+<span>4.8</span>
+<span class="material-symbols-outlined text-tertiary text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+<td class="p-md text-center text-outline-variant">—</td>
+</tr>
+<!-- Avg Package Row -->
+<tr class="group hover:bg-surface-variant/20 transition-colors">
+<td class="p-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">account_balance_wallet</span>
+<span class="text-body-md font-body-md text-on-surface">Avg. Package</span>
+</div>
+</td>
+<td class="p-md text-body-md font-body-md text-on-surface-variant">$165,000</td>
+<td class="p-md">
+<div class="flex items-center gap-sm">
+<span class="text-body-md font-body-md text-on-surface">$172,000</span>
+<span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-secondary-container/10 border border-secondary/20 text-secondary">High Avg</span>
+</div>
+</td>
+<td class="p-md text-center text-outline-variant">—</td>
+</tr>
+<!-- Highest Package Row -->
+<tr class="group hover:bg-surface-variant/20 transition-colors">
+<td class="p-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">trending_up</span>
+<span class="text-body-md font-body-md text-on-surface">Highest Package</span>
+</div>
+</td>
+<td class="p-md">
+<div class="flex items-center gap-sm">
+<span class="text-body-md font-body-md text-on-surface">$1.2M</span>
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_#d0bcff]"></div>
+</div>
+</td>
+<td class="p-md text-body-md font-body-md text-on-surface-variant">$980K</td>
+<td class="p-md text-center text-outline-variant">—</td>
+</tr>
+<!-- Courses Row -->
+<tr class="group hover:bg-surface-variant/20 transition-colors">
+<td class="p-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">menu_book</span>
+<span class="text-body-md font-body-md text-on-surface">Key Courses</span>
+</div>
+</td>
+<td class="p-md">
+<div class="flex flex-wrap gap-xs">
+<span class="px-xs py-1 bg-surface-variant/50 rounded text-label-sm text-on-surface-variant">CS</span>
+<span class="px-xs py-1 bg-surface-variant/50 rounded text-label-sm text-on-surface-variant">MBA</span>
+<span class="px-xs py-1 bg-surface-variant/50 rounded text-label-sm text-on-surface-variant">Law</span>
+</div>
+</td>
+<td class="p-md">
+<div class="flex flex-wrap gap-xs">
+<span class="px-xs py-1 bg-surface-variant/50 rounded text-label-sm text-on-surface-variant">AI</span>
+<span class="px-xs py-1 bg-surface-variant/50 rounded text-label-sm text-on-surface-variant">Physics</span>
+<span class="px-xs py-1 bg-surface-variant/50 rounded text-label-sm text-on-surface-variant">Eng</span>
+</div>
+</td>
+<td class="p-md text-center text-outline-variant">—</td>
+</tr>
+<!-- Location Row -->
+<tr class="group hover:bg-surface-variant/20 transition-colors">
+<td class="p-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">location_on</span>
+<span class="text-body-md font-body-md text-on-surface">Location</span>
+</div>
+</td>
+<td class="p-md">
+<div class="flex items-center gap-xs">
+<span class="text-body-md font-body-md text-on-surface-variant">Stanford, CA</span>
+<span class="material-symbols-outlined text-secondary text-[16px]">open_in_new</span>
+</div>
+</td>
+<td class="p-md">
+<div class="flex items-center gap-xs">
+<span class="text-body-md font-body-md text-on-surface-variant">Cambridge, MA</span>
+<span class="material-symbols-outlined text-secondary text-[16px]">open_in_new</span>
+</div>
+</td>
+<td class="p-md text-center text-outline-variant">—</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Footer Action in Card -->
+<div class="p-md bg-surface-container-low/30 border-t border-outline-variant/10 flex justify-between items-center">
+<span class="text-label-md text-on-surface-variant">Detailed PDF reports available for Pro members.</span>
+<button class="flex items-center gap-xs text-primary font-bold hover:gap-sm transition-all group">
+<span class="text-label-md">Download Analysis</span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">download</span>
+</button>
+</div>
+</section>
+<!-- Comparison Visual Insight (Bento Style) -->
+<section class="mt-xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<div class="glass-card p-md rounded-xl flex flex-col gap-sm lg:col-span-2">
+<div class="flex justify-between items-center">
+<h4 class="text-headline-md font-headline-md text-on-surface">Placement Probability</h4>
+<span class="text-label-sm text-outline">Q3 2024 Index</span>
+</div>
+<!-- Mini Chart Visualization -->
+<div class="h-48 w-full flex items-end gap-md px-md pt-lg">
+<div class="flex-1 flex flex-col items-center gap-xs">
+<div class="w-full bg-primary/20 rounded-t-lg relative group overflow-hidden" style="height: 85%;">
+<div class="absolute bottom-0 left-0 w-full bg-primary/40 h-1/2"></div>
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<span class="text-label-sm text-on-surface-variant">Stanford</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-xs">
+<div class="w-full bg-secondary/20 rounded-t-lg relative group overflow-hidden" style="height: 92%;">
+<div class="absolute bottom-0 left-0 w-full bg-secondary/40 h-1/2"></div>
+<div class="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<span class="text-label-sm text-on-surface-variant">MIT</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-xs">
+<div class="w-full bg-surface-variant/20 rounded-t-lg border-2 border-dashed border-outline-variant/30 h-10"></div>
+<span class="text-label-sm text-outline italic">TBD</span>
+</div>
+</div>
+</div>
+<div class="glass-card p-md rounded-xl bg-gradient-to-br from-primary-container/20 to-transparent border-primary/20 flex flex-col justify-between">
+<div>
+<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center mb-md">
+<span class="material-symbols-outlined text-primary">auto_awesome</span>
+</div>
+<h4 class="text-headline-md font-headline-md text-on-surface mb-xs">AI Recommendation</h4>
+<p class="text-body-md font-body-md text-on-surface-variant">Based on your focus in Artificial Intelligence and Engineering, <strong>MIT</strong> offers a slightly more specialized curriculum and higher research funding in your field.</p>
+</div>
+<button class="mt-md w-full py-xs rounded-lg border border-primary/40 text-primary font-bold hover:bg-primary/10 transition-colors">View Details</button>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-xl px-margin-desktop border-t border-outline-variant/10 bg-surface-container-lowest">
+<div class="max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-between items-center gap-md">
+<div class="text-headline-md font-headline-md text-on-surface">CampusCompass</div>
+<div class="flex gap-lg">
+<a class="text-on-surface-variant text-label-sm font-label-sm hover:text-secondary transition-colors" href="#">About</a>
+<a class="text-on-surface-variant text-label-sm font-label-sm hover:text-secondary transition-colors" href="#">Privacy</a>
+<a class="text-on-surface-variant text-label-sm font-label-sm hover:text-secondary transition-colors" href="#">Terms</a>
+<a class="text-on-surface-variant text-label-sm font-label-sm hover:text-secondary transition-colors" href="#">Contact</a>
+<a class="text-on-surface-variant text-label-sm font-label-sm hover:text-secondary transition-colors" href="#">GitHub</a>
+</div>
+<div class="text-on-surface-variant text-label-sm font-label-sm">© 2024 CampusCompass Inc. All rights reserved.</div>
+</div>
+</footer>
+<script>
+        // Micro-interaction: Table row highlighting and subtle hover effects
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.classList.add('shadow-inner');
+            });
+            row.addEventListener('mouseleave', () => {
+                row.classList.remove('shadow-inner');
+            });
+        });
+
+        // Atmospheric effect: Soft moving glow in background
+        const glow = document.createElement('div');
+        glow.style.position = 'fixed';
+        glow.style.top = '0';
+        glow.style.left = '0';
+        glow.style.width = '100%';
+        glow.style.height = '100%';
+        glow.style.pointerEvents = 'none';
+        glow.style.zIndex = '-1';
+        glow.style.background = 'radial-gradient(circle 600px at var(--x) var(--y), rgba(208, 188, 255, 0.03), transparent)';
+        document.body.appendChild(glow);
+
+        document.addEventListener('mousemove', (e) => {
+            glow.style.setProperty('--x', e.clientX + 'px');
+            glow.style.setProperty('--y', e.clientY + 'px');
+        });
+    </script>
+</body></html>

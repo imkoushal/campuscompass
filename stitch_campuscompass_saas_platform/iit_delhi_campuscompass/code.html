@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        @font-face {
+            font-family: 'geist';
+            src: url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+        }
+        body {
+            font-family: 'geist', sans-serif;
+            background-color: #0f0d15;
+            color: #e7e0ed;
+        }
+        .glass-panel {
+            background: rgba(33, 30, 39, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(73, 68, 84, 0.3);
+        }
+        .glow-dot {
+            width: 4px;
+            height: 4px;
+            background: #d0bcff;
+            box-shadow: 0 0 8px #d0bcff;
+            border-radius: 50%;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#3b3742",
+                        "surface-container": "#211e27",
+                        "on-error": "#690005",
+                        "on-primary-fixed-variant": "#5516be",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "on-error-container": "#ffdad6",
+                        "secondary-container": "#03b5d3",
+                        "on-surface-variant": "#cbc3d7",
+                        "on-primary-fixed": "#23005c",
+                        "background": "#15121b",
+                        "surface-variant": "#37333d",
+                        "inverse-primary": "#6d3bd7",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "on-surface": "#e7e0ed",
+                        "outline": "#958ea0",
+                        "error-container": "#93000a",
+                        "primary-fixed": "#e9ddff",
+                        "on-tertiary": "#482900",
+                        "surface-tint": "#d0bcff",
+                        "surface-container-low": "#1d1a23",
+                        "on-tertiary-fixed": "#2c1700",
+                        "surface-container-lowest": "#0f0d15",
+                        "outline-variant": "#494454",
+                        "on-primary": "#3c0091",
+                        "on-secondary": "#003640",
+                        "secondary-fixed": "#acedff",
+                        "on-secondary-container": "#00424e",
+                        "inverse-surface": "#e7e0ed",
+                        "tertiary": "#ffb869",
+                        "tertiary-container": "#ca801e",
+                        "on-tertiary-container": "#3f2300",
+                        "on-secondary-fixed": "#001f26",
+                        "surface-dim": "#15121b",
+                        "surface-container-highest": "#37333d",
+                        "surface": "#15121b",
+                        "secondary": "#4cd7f6",
+                        "primary": "#d0bcff",
+                        "error": "#ffb4ab",
+                        "inverse-on-surface": "#322f39",
+                        "on-background": "#e7e0ed",
+                        "on-primary-container": "#340080",
+                        "tertiary-fixed": "#ffdcbb",
+                        "primary-container": "#a078ff",
+                        "primary-fixed-dim": "#d0bcff",
+                        "tertiary-fixed-dim": "#ffb869",
+                        "surface-container-high": "#2c2832",
+                        "on-tertiary-fixed-variant": "#673d00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "80px",
+                        "xs": "8px",
+                        "lg": "48px",
+                        "base": "4px",
+                        "margin-mobile": "16px",
+                        "sm": "16px",
+                        "margin-desktop": "32px",
+                        "md": "24px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["geist"],
+                        "headline-lg-mobile": ["geist"],
+                        "body-lg": ["geist"],
+                        "label-md": ["geist"],
+                        "body-md": ["geist"],
+                        "label-sm": ["geist"],
+                        "headline-lg": ["geist"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "headline-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface-container/80 backdrop-blur-md border-b border-outline-variant/20 shadow-sm">
+<div class="flex justify-between items-center px-margin-desktop h-20 w-full max-w-screen-2xl mx-auto">
+<div class="text-headline-md font-headline-lg font-bold text-on-surface tracking-tight">CampusCompass</div>
+<div class="hidden md:flex gap-lg items-center">
+<a class="text-primary font-semibold border-b-2 border-primary pb-1 font-label-md text-label-md transition-transform active:scale-95" href="#">Colleges</a>
+<a class="text-on-surface-variant font-medium font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#">Compare</a>
+<a class="text-on-surface-variant font-medium font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#">Saved</a>
+<a class="text-on-surface-variant font-medium font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#">About</a>
+</div>
+<div class="flex gap-sm items-center">
+<button class="text-on-surface-variant font-medium font-label-md text-label-md px-md py-sm hover:text-primary transition-colors">Login</button>
+<button class="bg-primary-container text-on-primary-container font-label-md text-label-md px-md py-sm rounded-lg hover:opacity-90 active:scale-95 transition-all">Get Started</button>
+</div>
+</div>
+</nav>
+<main class="mt-20">
+<!-- Hero Section -->
+<section class="relative h-[614px] flex items-end pb-xl overflow-hidden px-margin-desktop">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="A cinematic, low-angle shot of a grand university campus featuring gothic stone architecture and a sprawling green courtyard at twilight. The scene is bathed in a moody purple and deep blue atmospheric light, reflecting a high-end, futuristic SaaS aesthetic. Soft light glows from arched windows, contrasting with the dark, sleek sky. The composition is clean, minimalist, and authoritative, evoking a sense of prestige and academic excellence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGe1nWfg3wu-uNleuMY1B_pxSEXJPWQR2N6uuQPSrldPF83weLs-PdCGXTJDa2gv1uemz-uX-nrujnijaRnMtVTgTfxjNqowOoA5oDYKM9ui4QlpuAGScQXFa1KaGqD7GbjyX1Fg-ar9Rg5t2on1-ms5NrccUME29F_UTkCinMSi6N4r68A0HvTJ4s_qJrIvjeQ2jNnGuWY4PvHT63YamMglbAA63Lrw_Vxm-aMNq3NmHnKOwdasbZlUrtjRWdWpY-1qvJGDdw98c"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"></div>
+</div>
+<div class="relative z-10 max-w-screen-2xl mx-auto w-full flex flex-col md:flex-row justify-between items-end gap-md">
+<div class="space-y-sm">
+<div class="flex items-center gap-xs text-primary bg-primary-container/20 px-sm py-1 rounded-full w-fit">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span class="text-label-md font-label-md">Premier Institute</span>
+</div>
+<h1 class="text-headline-lg font-headline-lg text-on-surface leading-none">Stanford University</h1>
+<div class="flex items-center gap-md text-on-surface-variant">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined">location_on</span>
+<span class="text-body-md font-body-md">Stanford, CA</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-body-md font-body-md text-on-surface">4.9 (2,401 Reviews)</span>
+</div>
+</div>
+</div>
+<div class="flex gap-sm">
+<button class="flex items-center gap-sm bg-surface-container-high border border-outline-variant/30 text-on-surface px-md py-sm rounded-xl hover:bg-surface-bright transition-all">
+<span class="material-symbols-outlined">bookmark</span>
+<span class="text-label-md font-label-md">Save College</span>
+</button>
+<button class="bg-primary text-on-primary font-bold px-lg py-sm rounded-xl hover:opacity-90 active:scale-95 transition-all">
+                        Apply Now
+                    </button>
+</div>
+</div>
+</section>
+<!-- Content Grid -->
+<section class="max-w-screen-2xl mx-auto px-margin-desktop py-xl grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Overview & Courses -->
+<div class="lg:col-span-8 space-y-lg">
+<!-- Overview -->
+<div class="glass-panel p-md rounded-xl space-y-md">
+<h2 class="text-headline-md font-headline-md text-on-surface">Institution Overview</h2>
+<p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">
+                        Located in the heart of Silicon Valley, Stanford is one of the world's leading teaching and research institutions. Since its opening in 1891, Stanford has been dedicated to finding solutions to big challenges and to preparing students for leadership in a complex world. The campus spans 8,180 acres and hosts a diverse community of innovators and scholars.
+                    </p>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-sm pt-md">
+<div class="p-sm bg-surface-container-low rounded-lg border border-outline-variant/10">
+<div class="text-label-sm font-label-sm text-outline mb-1 uppercase tracking-wider">Established</div>
+<div class="text-body-md font-bold text-on-surface">1891</div>
+</div>
+<div class="p-sm bg-surface-container-low rounded-lg border border-outline-variant/10">
+<div class="text-label-sm font-label-sm text-outline mb-1 uppercase tracking-wider">Campus Size</div>
+<div class="text-body-md font-bold text-on-surface">8,180 Acres</div>
+</div>
+<div class="p-sm bg-surface-container-low rounded-lg border border-outline-variant/10">
+<div class="text-label-sm font-label-sm text-outline mb-1 uppercase tracking-wider">Type</div>
+<div class="text-body-md font-bold text-on-surface">Private</div>
+</div>
+<div class="p-sm bg-surface-container-low rounded-lg border border-outline-variant/10">
+<div class="text-label-sm font-label-sm text-outline mb-1 uppercase tracking-wider">Faculty Ratio</div>
+<div class="text-body-md font-bold text-on-surface">5:1</div>
+</div>
+</div>
+</div>
+<!-- Courses -->
+<div class="space-y-md">
+<div class="flex justify-between items-end">
+<h2 class="text-headline-md font-headline-md text-on-surface">Available Courses</h2>
+<button class="text-primary text-label-md font-label-md hover:underline">View All Programs</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-sm">
+<!-- Course Card -->
+<div class="p-md rounded-xl bg-surface-container-low border border-outline-variant/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-sm">
+<h3 class="text-body-lg font-bold text-on-surface group-hover:text-primary transition-colors">Computer Science (B.S.)</h3>
+<span class="bg-secondary/10 text-secondary text-[10px] px-2 py-0.5 rounded-full font-bold uppercase">Engineering</span>
+</div>
+<p class="text-label-md font-label-md text-on-surface-variant line-clamp-2 mb-md">
+                                A comprehensive curriculum focused on software systems, artificial intelligence, and theoretical foundations.
+                            </p>
+<div class="flex justify-between items-center text-label-sm">
+<div class="flex gap-md">
+<span>4 Years</span>
+<span class="text-outline">Full Time</span>
+</div>
+<div class="text-on-surface font-bold">$18,400 / Yr</div>
+</div>
+</div>
+<!-- Course Card -->
+<div class="p-md rounded-xl bg-surface-container-low border border-outline-variant/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-sm">
+<h3 class="text-body-lg font-bold text-on-surface group-hover:text-primary transition-colors">Business Administration (MBA)</h3>
+<span class="bg-tertiary/10 text-tertiary text-[10px] px-2 py-0.5 rounded-full font-bold uppercase">Management</span>
+</div>
+<p class="text-label-md font-label-md text-on-surface-variant line-clamp-2 mb-md">
+                                Focus on global leadership, entrepreneurship, and strategic decision-making in a competitive landscape.
+                            </p>
+<div class="flex justify-between items-center text-label-sm">
+<div class="flex gap-md">
+<span>2 Years</span>
+<span class="text-outline">Postgrad</span>
+</div>
+<div class="text-on-surface font-bold">$74,500 / Yr</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Placement Stats -->
+<div class="glass-panel p-md rounded-xl space-y-md">
+<h2 class="text-headline-md font-headline-md text-on-surface">Career Outcomes</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="relative p-md rounded-xl bg-background/40 overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-all"></div>
+<div class="text-label-sm font-label-sm text-outline uppercase mb-2">Highest Package</div>
+<div class="text-[32px] font-bold text-on-surface tracking-tight">$420,000</div>
+<div class="text-primary text-label-sm mt-1">+12% from last year</div>
+</div>
+<div class="relative p-md rounded-xl bg-background/40 overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-secondary/10 rounded-full blur-2xl group-hover:bg-secondary/20 transition-all"></div>
+<div class="text-label-sm font-label-sm text-outline uppercase mb-2">Average CTC</div>
+<div class="text-[32px] font-bold text-on-surface tracking-tight">$158,000</div>
+<div class="text-secondary text-label-sm mt-1">98.5% Placed</div>
+</div>
+<div class="relative p-md rounded-xl bg-background/40 overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-tertiary/10 rounded-full blur-2xl group-hover:bg-tertiary/20 transition-all"></div>
+<div class="text-label-sm font-label-sm text-outline uppercase mb-2">Top Recruiters</div>
+<div class="flex gap-2 mt-4">
+<div class="w-8 h-8 bg-on-surface/5 rounded flex items-center justify-center border border-outline-variant/20">G</div>
+<div class="w-8 h-8 bg-on-surface/5 rounded flex items-center justify-center border border-outline-variant/20">A</div>
+<div class="w-8 h-8 bg-on-surface/5 rounded flex items-center justify-center border border-outline-variant/20">M</div>
+<div class="w-8 h-8 bg-on-surface/5 rounded flex items-center justify-center border border-outline-variant/20">S</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Sidebar -->
+<div class="lg:col-span-4 space-y-lg">
+<!-- Quick Actions -->
+<div class="p-md rounded-xl bg-surface-container-high border border-outline-variant/30 space-y-md">
+<h3 class="text-body-lg font-bold text-on-surface">Interested in Stanford?</h3>
+<div class="space-y-sm">
+<button class="w-full bg-primary-container text-on-primary-container p-sm rounded-lg font-label-md text-label-md flex items-center justify-center gap-sm hover:opacity-90 transition-all">
+<span class="material-symbols-outlined">download</span>
+                            Download Brochure
+                        </button>
+<button class="w-full bg-surface-container text-on-surface border border-outline-variant/50 p-sm rounded-lg font-label-md text-label-md flex items-center justify-center gap-sm hover:bg-surface-variant transition-all">
+<span class="material-symbols-outlined">calendar_today</span>
+                            Book Campus Tour
+                        </button>
+</div>
+<div class="pt-sm border-t border-outline-variant/20">
+<div class="flex items-center gap-md">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-high bg-on-surface/10 overflow-hidden">
+<img alt="" data-alt="Close-up portrait of a diverse male graduate smiling with a blurred university background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp_DLKTP6jWt14D5fTH3-PTPY6rJvZeSx8Rh3Q-s663xWgff77sCuLoi-io2RSqZT95582wvI52SKVrmV7p7ssXBhNb7WIv4hBnpnOaxyS3KO4q3I6Du_xA0UR349HxD_iM8g-tTmkbjIcWQcsvA-S0MaC-dZIDGVY1669RkGcY9ZWIlu4vZr0e1gk1P5uMIveSp-_69z2pSBxG_88MIrwE5XHivNcgJuvrfVX6vT6jETc51m7WcEa1Cy_SLcD9kgBHvf9TTkT0gI"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-high bg-on-surface/10 overflow-hidden">
+<img alt="" data-alt="Close-up portrait of a diverse female student smiling with a blurred university library background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAt-IX8vm8qI6osM5vxySg87zZm6KFpm8Izss8GHIwS3W7ANnUgh9DKTbBOLcDQQlQ7461eUXcKJzvPQKGhRPfoTTos1yt4o4_nSQqmcNmVQXyp-c6wnAd45dhMM3thPa-XaiMRp5-oY73aboKnawvCTCC9EMuA9MI4FkAIIIIvmfwNulg_5tb8-RwzcSzn3Vew-tOqmsZRV8VT4H7oZFfbq7BPPsoxSw1fIL19YqRU7OWvxIf23DiSLQfazOrHElfyWDV3AgyDgVY"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-high bg-on-surface/10 flex items-center justify-center text-[10px] font-bold bg-surface-container-lowest">12+</div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Friends have applied here</span>
+</div>
+</div>
+</div>
+<!-- Reviews Sidebar -->
+<div class="space-y-md">
+<h2 class="text-headline-md font-headline-md text-on-surface">Student Life</h2>
+<div class="space-y-sm">
+<div class="p-md rounded-xl bg-surface-container-lowest border border-outline-variant/10">
+<div class="flex items-center gap-sm mb-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+<div>
+<div class="text-label-md font-bold">Jason M.</div>
+<div class="flex gap-[2px]">
+<span class="material-symbols-outlined text-[14px] text-tertiary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[14px] text-tertiary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[14px] text-tertiary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[14px] text-tertiary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[14px] text-tertiary" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+</div>
+<p class="text-label-md font-body-md text-on-surface-variant italic">
+                                "The ecosystem here is unmatched. You aren't just learning, you're building with the brightest minds."
+                            </p>
+</div>
+<div class="p-md rounded-xl bg-surface-container-lowest border border-outline-variant/10">
+<div class="flex items-center gap-sm mb-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">person</span>
+</div>
+<div>
+<div class="text-label-md font-bold">Sarah L.</div>
+<div class="flex gap-[2px]">
+<span class="material-symbols-outlined text-[14px] text-tertiary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[14px] text-tertiary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[14px] text-tertiary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[14px] text-tertiary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">star</span>
+</div>
+</div>
+</div>
+<p class="text-label-md font-body-md text-on-surface-variant italic">
+                                "Exceptional research facilities. A bit intense, but the growth is phenomenal."
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Related Colleges -->
+<section class="max-w-screen-2xl mx-auto px-margin-desktop py-xl border-t border-outline-variant/10">
+<h2 class="text-headline-md font-headline-md text-on-surface mb-lg">Recommended for You</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
+<!-- Card 1 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-video rounded-xl overflow-hidden mb-sm bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A modern university library with expansive glass walls and multi-level study pods. The interior is characterized by sleek, dark wood accents and high-tech workstations. The atmosphere is quiet and intellectually charged, lit by soft ambient purple neon strips and natural moonlight filtering through the ceiling. This professional image emphasizes the cutting-edge facilities of a premium educational institution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB85cmy5JsdVyyvEpqnQdCsrfqSw2GojJmzLbwAOt5zpHFuX2-OjWzoVEVO052Y0HVF_NIf7SIF5jMmpJo8P41LlDZvL6ZOXl4on_ZHWTsCnv5OlK2hLL0WgMP4YRqq8PNFgGEZmDpO0Pcz3fEHgF8VG-p4MpC5ze-VYqpOL_8QKclx0nNeKLqNYes_QPOiCvAUW4ceB6WP8751_BZcYpiSLTLkvEecbFzxnByl2Pcv3tpDDM757zVJeZ3KOp7gEmIl-8-TpsoDEH8"/>
+<div class="absolute top-2 right-2 bg-background/80 backdrop-blur-md px-2 py-1 rounded text-label-sm font-bold text-on-surface">4.8</div>
+</div>
+<h3 class="text-body-md font-bold text-on-surface group-hover:text-primary transition-colors">MIT</h3>
+<p class="text-label-sm text-outline">Cambridge, MA • $55,000/Yr</p>
+</div>
+<!-- Card 2 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-video rounded-xl overflow-hidden mb-sm bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An expansive aerial view of a prestigious Ivy League college campus at dusk. The historic red-brick buildings are surrounded by meticulously manicured lawns and old-growth trees. Soft golden and purple light spills from the windows onto the paved walkways. The mood is timeless, elegant, and deeply academic, maintaining the minimalist and premium SaaS feel through high-contrast shadows and clean lines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDF6fcdZv5sVCI6t1vREb76uoa1bdSkClv9gOl-ZTR8NlHhpCoVOQ-cOkytnUa_iuIPr1LnxRA_VTs1fr0mOWhtRKYZOBXud_8FRyKzgQV4OqOOO_NgBG0vRmV4p6UgUy_915Zd0BBdyzMjXT5PoFJvfjZJOlHSvc348G7uylW-XYMbnS1pd8OiXYEk46tNY0i2wMrAb62Crn31kee_7oxmwAdR2Ge_cu12lH3W7U3IfYMjtON1rMQIuadgArfpOZUZrdaEGlODims"/>
+<div class="absolute top-2 right-2 bg-background/80 backdrop-blur-md px-2 py-1 rounded text-label-sm font-bold text-on-surface">4.7</div>
+</div>
+<h3 class="text-body-md font-bold text-on-surface group-hover:text-primary transition-colors">Harvard University</h3>
+<p class="text-label-sm text-outline">Cambridge, MA • $52,000/Yr</p>
+</div>
+<!-- Card 3 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-video rounded-xl overflow-hidden mb-sm bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A futuristic, high-tech student lounge inside a top-tier technology institute. The space features ergonomic furniture, interactive digital surfaces, and large glass windows overlooking a modern city skyline. The lighting is dominated by a deep purple and cyan neon palette, creating a pro-tier, developer-centric atmosphere. The style is strictly glassmorphism with high-contrast elements and intentional whitespace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXGYN2hdjRDEaKnWJ3oO8oAU2klbklTuLmXvXtCTGtv2Xyi0mVcJBkMWF9U3nly2n7JlnZTXY5RfnsA4YxO9XA58yUx7katKWKvJgsthL_LCKwZhTeXmredhWNbMESVDFFw7cq9s_oy6N16JFeH_QkdNUv8G79O091fMEtnqUBth3XtPrScTiHG3xjCc8GZha5X-1SaNuGWg_8F5Jt1l4WO1klbol7xl2pghHsEmw_NmUyoNnbCByXUFFYcNJWKut5QHDSHiYgy3k"/>
+<div class="absolute top-2 right-2 bg-background/80 backdrop-blur-md px-2 py-1 rounded text-label-sm font-bold text-on-surface">4.6</div>
+</div>
+<h3 class="text-body-md font-bold text-on-surface group-hover:text-primary transition-colors">Caltech</h3>
+<p class="text-label-sm text-outline">Pasadena, CA • $58,000/Yr</p>
+</div>
+<!-- Card 4 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-video rounded-xl overflow-hidden mb-sm bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A grand academic hall with soaring ceilings and modern minimalist lighting fixtures. The architecture blends classical proportions with contemporary materials like polished concrete and dark metal. The scene is captured at night, with the interior glowing in a soft, welcoming violet hue against a dark background. The image is sophisticated and evokes a sense of infinite academic depth and precision instrument quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-ZSwCz2tU07Cnlo4LUu6fBieZg3BRYLPhmRBy-Uoe6aoWJPi6IyyXjUcMo4JhzTYiG9DeCYXHgIjMXmbt4v_-qJsdW6Bh2F7kR1vm_ItFoJXqb5OsKYZu77GFrTnEY3P-sIYohqm-BK3eQfMjAeTkmppdxone9fJdux2j9-y26sJZ8uzh9ckxEg04uTJhXKrDwkpQRHK8XrHHfJN2ACpK_KKA_FaiLsGoQY8oxlLCZSTgEBR-7cSxOicp6puqnVclxS0lRlnHbpI"/>
+<div class="absolute top-2 right-2 bg-background/80 backdrop-blur-md px-2 py-1 rounded text-label-sm font-bold text-on-surface">4.8</div>
+</div>
+<h3 class="text-body-md font-bold text-on-surface group-hover:text-primary transition-colors">Princeton University</h3>
+<p class="text-label-sm text-outline">Princeton, NJ • $54,000/Yr</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant/10 py-xl px-margin-desktop">
+<div class="max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-between items-center gap-md">
+<div class="text-headline-md font-headline-md text-on-surface font-bold">CampusCompass</div>
+<div class="flex gap-lg">
+<a class="text-on-surface-variant text-label-sm font-label-sm hover:text-secondary transition-colors" href="#">About</a>
+<a class="text-on-surface-variant text-label-sm font-label-sm hover:text-secondary transition-colors" href="#">Privacy</a>
+<a class="text-on-surface-variant text-label-sm font-label-sm hover:text-secondary transition-colors" href="#">Terms</a>
+<a class="text-on-surface-variant text-label-sm font-label-sm hover:text-secondary transition-colors" href="#">Contact</a>
+<a class="text-on-surface-variant text-label-sm font-label-sm hover:text-secondary transition-colors" href="#">GitHub</a>
+</div>
+<div class="text-on-surface-variant text-body-md font-body-md text-sm">
+                © 2024 CampusCompass Inc. All rights reserved.
+            </div>
+</div>
+</footer>
+<script>
+        // Simple interaction for cards
+        document.querySelectorAll('.cursor-pointer').forEach(card => {
+            card.addEventListener('mousedown', () => {
+                card.style.transform = 'scale(0.98)';
+            });
+            card.addEventListener('mouseup', () => {
+                card.style.transform = 'scale(1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'scale(1)';
+            });
+        });
+
+        // Atmospheric effect: Subtle cursor glow
+        const glow = document.createElement('div');
+        glow.style.position = 'fixed';
+        glow.style.width = '400px';
+        glow.style.height = '400px';
+        glow.style.borderRadius = '50%';
+        glow.style.background = 'radial-gradient(circle, rgba(139, 92, 246, 0.05) 0%, transparent 70%)';
+        glow.style.pointerEvents = 'none';
+        glow.style.zIndex = '9999';
+        glow.style.transform = 'translate(-50%, -50%)';
+        document.body.appendChild(glow);
+
+        window.addEventListener('mousemove', (e) => {
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+        });
+    </script>
+</body></html>

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Colleges | CampusCompass</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=geist:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#3b3742",
+                        "surface-container": "#211e27",
+                        "on-error": "#690005",
+                        "on-primary-fixed-variant": "#5516be",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "on-error-container": "#ffdad6",
+                        "secondary-container": "#03b5d3",
+                        "on-surface-variant": "#cbc3d7",
+                        "on-primary-fixed": "#23005c",
+                        "background": "#15121b",
+                        "surface-variant": "#37333d",
+                        "inverse-primary": "#6d3bd7",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "on-surface": "#e7e0ed",
+                        "outline": "#958ea0",
+                        "error-container": "#93000a",
+                        "primary-fixed": "#e9ddff",
+                        "on-tertiary": "#482900",
+                        "surface-tint": "#d0bcff",
+                        "surface-container-low": "#1d1a23",
+                        "on-tertiary-fixed": "#2c1700",
+                        "surface-container-lowest": "#0f0d15",
+                        "outline-variant": "#494454",
+                        "on-primary": "#3c0091",
+                        "on-secondary": "#003640",
+                        "secondary-fixed": "#acedff",
+                        "on-secondary-container": "#00424e",
+                        "inverse-surface": "#e7e0ed",
+                        "tertiary": "#ffb869",
+                        "tertiary-container": "#ca801e",
+                        "on-tertiary-container": "#3f2300",
+                        "on-secondary-fixed": "#001f26",
+                        "surface-dim": "#15121b",
+                        "surface-container-highest": "#37333d",
+                        "surface": "#15121b",
+                        "secondary": "#4cd7f6",
+                        "primary": "#d0bcff",
+                        "error": "#ffb4ab",
+                        "inverse-on-surface": "#322f39",
+                        "on-background": "#e7e0ed",
+                        "on-primary-container": "#340080",
+                        "tertiary-fixed": "#ffdcbb",
+                        "primary-container": "#a078ff",
+                        "primary-fixed-dim": "#d0bcff",
+                        "tertiary-fixed-dim": "#ffb869",
+                        "surface-container-high": "#2c2832",
+                        "on-tertiary-fixed-variant": "#673d00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "80px",
+                        "xs": "8px",
+                        "lg": "48px",
+                        "base": "4px",
+                        "margin-mobile": "16px",
+                        "sm": "16px",
+                        "margin-desktop": "32px",
+                        "md": "24px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["geist"],
+                        "headline-lg-mobile": ["geist"],
+                        "body-lg": ["geist"],
+                        "label-md": ["geist"],
+                        "body-md": ["geist"],
+                        "label-sm": ["geist"],
+                        "headline-lg": ["geist"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "headline-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #09090b;
+            color: #e7e0ed;
+            font-family: 'geist', sans-serif;
+        }
+        .glass-card {
+            background: linear-gradient(180deg, #1c1c1f 0%, #18181b 100%);
+            border: 1px solid #27272a;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            border-color: #d0bcff;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.05);
+        }
+        .filter-input {
+            background-color: #09090b;
+            border: 1px solid #27272a;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .filter-input:focus {
+            outline: none;
+            border-color: #d0bcff;
+            box-shadow: 0 0 0 4px rgba(208, 188, 255, 0.1);
+        }
+        .primary-btn {
+            background: linear-gradient(135deg, #d0bcff 0%, #a078ff 100%);
+            color: #23005c;
+        }
+        .secondary-btn {
+            border: 1px solid #27272a;
+            background: transparent;
+            transition: all 0.2s;
+        }
+        .secondary-btn:hover {
+            border-color: #4cd7f6;
+            color: #4cd7f6;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #27272a; border-radius: 10px; }
+    </style>
+</head>
+<body class="selection:bg-primary/30">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface-container/80 backdrop-blur-md border-b border-outline-variant/20 shadow-sm">
+<div class="flex justify-between items-center px-margin-desktop h-20 w-full max-w-screen-2xl mx-auto">
+<div class="text-headline-md font-headline-lg font-bold text-on-surface tracking-tight">
+                CampusCompass
+            </div>
+<div class="hidden md:flex gap-md">
+<a class="text-primary font-semibold border-b-2 border-primary pb-1 font-label-md text-label-md" href="#">Colleges</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#">Compare</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#">Saved</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#">About</a>
+</div>
+<div class="flex items-center gap-sm">
+<button class="text-on-surface-variant font-medium hover:text-primary transition-colors font-label-md text-label-md">Login</button>
+<button class="primary-btn px-md py-xs rounded-lg font-label-md text-label-md font-bold active:scale-95 transition-transform">Get Started</button>
+</div>
+</div>
+</nav>
+<main class="pt-24 flex min-h-screen max-w-screen-2xl mx-auto px-margin-desktop gap-xl">
+<!-- Side Filter Panel -->
+<aside class="hidden lg:block w-72 h-[calc(100vh-120px)] sticky top-24 overflow-y-auto custom-scrollbar pr-xs">
+<div class="space-y-lg">
+<div>
+<h2 class="text-headline-md font-headline-md text-on-surface mb-md">Filters</h2>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="filter-input w-full pl-10 pr-4 py-3 rounded-lg text-body-md font-body-md" placeholder="Search colleges..." type="text"/>
+</div>
+</div>
+<div class="space-y-md">
+<label class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Location</label>
+<select class="filter-input w-full px-4 py-3 rounded-lg text-body-md font-body-md appearance-none">
+<option>All Locations</option>
+<option>North America</option>
+<option>Europe</option>
+<option>Asia Pacific</option>
+</select>
+</div>
+<div class="space-y-md">
+<label class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Annual Fees Range</label>
+<div class="flex items-center gap-xs">
+<input class="filter-input w-full px-3 py-2 rounded-lg text-body-md font-body-md" placeholder="Min" type="text"/>
+<span class="text-outline">-</span>
+<input class="filter-input w-full px-3 py-2 rounded-lg text-body-md font-body-md" placeholder="Max" type="text"/>
+</div>
+</div>
+<div class="space-y-md">
+<label class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Minimum Rating</label>
+<div class="flex flex-wrap gap-xs">
+<button class="px-3 py-1.5 rounded-full border border-outline-variant text-label-sm hover:border-primary hover:text-primary transition-colors">3.0+</button>
+<button class="px-3 py-1.5 rounded-full border border-outline-variant text-label-sm hover:border-primary hover:text-primary transition-colors">4.0+</button>
+<button class="px-3 py-1.5 rounded-full border border-primary bg-primary/10 text-primary text-label-sm">4.5+</button>
+</div>
+</div>
+<div class="space-y-md">
+<label class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Avg Package (USD)</label>
+<input class="w-full h-1 bg-surface-variant rounded-lg appearance-none cursor-pointer accent-primary" type="range"/>
+<div class="flex justify-between text-label-sm text-outline">
+<span>$50k</span>
+<span>$200k+</span>
+</div>
+</div>
+<div class="pt-md border-t border-outline-variant/20">
+<button class="w-full secondary-btn py-3 rounded-lg font-label-md text-label-md flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+                        Reset Filters
+                    </button>
+</div>
+</div>
+</aside>
+<!-- Content Area -->
+<section class="flex-1 pb-xl">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-xl gap-md">
+<div>
+<h1 class="text-headline-lg font-headline-lg text-on-surface mb-xs">Premium Colleges</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant">Discover world-class institutions tailored for your career.</p>
+</div>
+<div class="flex items-center gap-sm">
+<span class="text-label-md font-label-md text-on-surface-variant whitespace-nowrap">Sort by:</span>
+<select class="filter-input px-4 py-2 rounded-lg text-label-md font-label-md bg-transparent border-none focus:ring-0">
+<option>Highest Rating</option>
+<option>Avg Package</option>
+<option>Fee: Low to High</option>
+</select>
+</div>
+</div>
+<!-- College Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Card 1 -->
+<div class="glass-card group rounded-xl overflow-hidden flex flex-col">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A grand university campus featuring gothic architecture and expansive green lawns under a soft golden hour sunset. The lighting is cinematic and warm, highlighting the intricate stone details and creating a prestigious, academic atmosphere. The aesthetic is sophisticated and high-end, aligned with a premium educational institution profile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHMz98tdCd9hj8Hhx8JRZ6dG2L5g7YYVRXDfjYwgxnxRNd2EpN0cEBtQy4KxHl-y8O7g_aoz1T5OfGCvx8lY7zj5qYzJGfL-9MYOsrsmddt3Ageo7CpM0IgaSxx6gf9fBopeDVIxUH8tkJF6BRHl6xXBSDfZfKNXmwsG9wzu714hob_wqkcO7rDQ15nN5kTILzzlPa_PfJIxTPRux1UbZALT5LgBUW5E9DT4Qo_gd7YvmaUCkTov3OTYWoRCUUqdQH1yU__mptvh4"/>
+<div class="absolute top-4 right-4 flex gap-xs">
+<span class="bg-surface-container/90 backdrop-blur-md text-primary px-3 py-1 rounded-full text-label-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span> 4.9
+                            </span>
+</div>
+</div>
+<div class="p-md flex flex-col flex-1">
+<div class="mb-md">
+<div class="flex justify-between items-start mb-xs">
+<h3 class="text-headline-md font-headline-md text-on-surface group-hover:text-primary transition-colors">Stanford Institute</h3>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">bookmark</span>
+</button>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="text-body-md font-body-md">Palo Alto, California</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-md mb-lg border-y border-outline-variant/10 py-md">
+<div>
+<p class="text-label-sm font-label-sm text-outline mb-1 uppercase">Annual Fees</p>
+<p class="text-body-md font-body-md text-on-surface">$55,400</p>
+</div>
+<div>
+<p class="text-label-sm font-label-sm text-outline mb-1 uppercase">Avg Package</p>
+<p class="text-body-md font-body-md text-secondary">$162,000</p>
+</div>
+</div>
+<div class="mt-auto pt-md">
+<button class="w-full primary-btn py-3 rounded-lg font-label-md text-label-md font-bold">View Details</button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="glass-card group rounded-xl overflow-hidden flex flex-col">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Modern university library with massive glass windows reflecting a clear blue sky. The interior shows students in a collaborative workspace with minimalist wooden furniture and sleek digital displays. The mood is focused and progressive, emphasizing a high-tech learning environment with deep shadows and cool blue accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSvVpASuM8-pRiGrxvDsoQxzkhWidOzGAX7r-CG1H-zbhk23MfGlJFJcF35ywr96MbmjPvWu0lMxjz4zQZtMXpoY5rzgNPZge1sJamlIg1KqwlwmOdkDA6AA_eIl1W-OyqBCxHqV9RxdvSzvlF8RYGyUq9P7Sv04Kkna3niOsmJn9H3NC4yW7EA8Hm01C8mzBVoaz5U6qFybMPUS19_FTt8UpGH1sKx_fWeue7eZlblCZfDM_w1FstIF19NQu6HHsQo9UkndmtlN8"/>
+<div class="absolute top-4 right-4 flex gap-xs">
+<span class="bg-surface-container/90 backdrop-blur-md text-primary px-3 py-1 rounded-full text-label-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span> 4.8
+                            </span>
+</div>
+</div>
+<div class="p-md flex flex-col flex-1">
+<div class="mb-md">
+<div class="flex justify-between items-start mb-xs">
+<h3 class="text-headline-md font-headline-md text-on-surface group-hover:text-primary transition-colors">ETH Zurich</h3>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">bookmark</span>
+</button>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="text-body-md font-body-md">Zurich, Switzerland</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-md mb-lg border-y border-outline-variant/10 py-md">
+<div>
+<p class="text-label-sm font-label-sm text-outline mb-1 uppercase">Annual Fees</p>
+<p class="text-body-md font-body-md text-on-surface">$1,450</p>
+</div>
+<div>
+<p class="text-label-sm font-label-sm text-outline mb-1 uppercase">Avg Package</p>
+<p class="text-body-md font-body-md text-secondary">$145,000</p>
+</div>
+</div>
+<div class="mt-auto pt-md">
+<button class="w-full primary-btn py-3 rounded-lg font-label-md text-label-md font-bold">View Details</button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="glass-card group rounded-xl overflow-hidden flex flex-col">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Aerial view of a prestigious coastal campus with modern white buildings juxtaposed against a deep blue ocean. The sunlight is bright and clear, emphasizing the contrast between the clean architectural lines and the natural organic coastline. The atmosphere is aspirational, luxurious, and peaceful, suggesting a premium academic retreat." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDC_9sfp-520J1RNXWn7P9stIeOnJ9ZL4XS8fAvqFGsfaFyxcyAHhHMVL-7hAcCQGiXUMMq50tLXzmvU7pLmfC9-121p7XpUQO73MGNldvJRirJuYwv-KYsDEtTQohGJpmpNksx1NrIcz9-vBKqrQKe2wkvP_xHB4Lg5TonAbuKfOd-hCNJsPsNqKLMJ2v-8HCeWZcTg-cwXur5gg1QpxP_ibM4dJ2rEmrZF7rJELea9TQn2Cyst9l-GyvjbfQPNafW0Cs9oYVumk"/>
+<div class="absolute top-4 right-4 flex gap-xs">
+<span class="bg-surface-container/90 backdrop-blur-md text-primary px-3 py-1 rounded-full text-label-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span> 4.7
+                            </span>
+</div>
+</div>
+<div class="p-md flex flex-col flex-1">
+<div class="mb-md">
+<div class="flex justify-between items-start mb-xs">
+<h3 class="text-headline-md font-headline-md text-on-surface group-hover:text-primary transition-colors">NTU Singapore</h3>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">bookmark</span>
+</button>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="text-body-md font-body-md">Jurong West, Singapore</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-md mb-lg border-y border-outline-variant/10 py-md">
+<div>
+<p class="text-label-sm font-label-sm text-outline mb-1 uppercase">Annual Fees</p>
+<p class="text-body-md font-body-md text-on-surface">$32,000</p>
+</div>
+<div>
+<p class="text-label-sm font-label-sm text-outline mb-1 uppercase">Avg Package</p>
+<p class="text-body-md font-body-md text-secondary">$128,000</p>
+</div>
+</div>
+<div class="mt-auto pt-md">
+<button class="w-full primary-btn py-3 rounded-lg font-label-md text-label-md font-bold">View Details</button>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="glass-card group rounded-xl overflow-hidden flex flex-col">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A historic ivy-covered brick building of a traditional Ivy League university at dawn. Soft blue and purple morning light filters through ancient trees, casting long shadows. The style is timeless and authoritative, evoking a sense of legacy and intellectual rigor with high contrast and deep tonal depth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqQiKfs4OiVUZsLTUCje3fcPUEpbnCVtdmCFdb3I3rlKN8io-1aOAI0CjpvNmb9hizyrEAhgjqH1Ade06LVab_JvziqGyOWWNbO-n2qr-QfmK3QOoFNs9hZ8vBC8n9PEzFMLUXA2-Pc4qDLmVsWwYye90y1Kp0I10z57d1ERGCIBgdTor0nzT75L5MZiU_M2uLBwPZzCwZMxaIlaQOWwUEiNixTUwszIP-5-YZ3OUx7wGt5MZ7Xm2sWC8agfrpQ9VXqZyv1IjmYRs"/>
+<div class="absolute top-4 right-4 flex gap-xs">
+<span class="bg-surface-container/90 backdrop-blur-md text-primary px-3 py-1 rounded-full text-label-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span> 4.9
+                            </span>
+</div>
+</div>
+<div class="p-md flex flex-col flex-1">
+<div class="mb-md">
+<div class="flex justify-between items-start mb-xs">
+<h3 class="text-headline-md font-headline-md text-on-surface group-hover:text-primary transition-colors">University of Oxford</h3>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">bookmark</span>
+</button>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="text-body-md font-body-md">Oxford, United Kingdom</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-md mb-lg border-y border-outline-variant/10 py-md">
+<div>
+<p class="text-label-sm font-label-sm text-outline mb-1 uppercase">Annual Fees</p>
+<p class="text-body-md font-body-md text-on-surface">$42,800</p>
+</div>
+<div>
+<p class="text-label-sm font-label-sm text-outline mb-1 uppercase">Avg Package</p>
+<p class="text-body-md font-body-md text-secondary">$158,000</p>
+</div>
+</div>
+<div class="mt-auto pt-md">
+<button class="w-full primary-btn py-3 rounded-lg font-label-md text-label-md font-bold">View Details</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-xl flex justify-center items-center gap-sm">
+<button class="secondary-btn p-3 rounded-lg disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<div class="flex gap-xs">
+<button class="w-12 h-12 rounded-lg bg-primary/20 text-primary border border-primary/50 font-label-md">1</button>
+<button class="w-12 h-12 rounded-lg border border-outline-variant hover:border-primary transition-colors font-label-md">2</button>
+<button class="w-12 h-12 rounded-lg border border-outline-variant hover:border-primary transition-colors font-label-md">3</button>
+<span class="w-12 h-12 flex items-center justify-center text-outline">...</span>
+<button class="w-12 h-12 rounded-lg border border-outline-variant hover:border-primary transition-colors font-label-md">12</button>
+</div>
+<button class="secondary-btn p-3 rounded-lg">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="mt-xl border-t border-outline-variant/10 bg-surface-container-lowest w-full py-xl px-margin-desktop">
+<div class="max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-between items-center gap-md">
+<div class="text-headline-md font-headline-md text-on-surface">CampusCompass</div>
+<div class="flex flex-wrap justify-center gap-md">
+<a class="text-on-surface-variant text-label-sm font-label-sm hover:text-secondary transition-colors" href="#">About</a>
+<a class="text-on-surface-variant text-label-sm font-label-sm hover:text-secondary transition-colors" href="#">Privacy</a>
+<a class="text-on-surface-variant text-label-sm font-label-sm hover:text-secondary transition-colors" href="#">Terms</a>
+<a class="text-on-surface-variant text-label-sm font-label-sm hover:text-secondary transition-colors" href="#">Contact</a>
+<a class="text-on-surface-variant text-label-sm font-label-sm hover:text-secondary transition-colors" href="#">GitHub</a>
+</div>
+<div class="text-on-surface-variant text-body-md font-body-md">
+                © 2024 CampusCompass Inc. All rights reserved.
+            </div>
+</div>
+</footer>
+<script>
+        // Simple micro-interactions for filters
+        document.querySelectorAll('.filter-input').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('scale-[1.01]');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('scale-[1.01]');
+            });
+        });
+
+        // Toggle bookmark fill state
+        document.querySelectorAll('.material-symbols-outlined').forEach(icon => {
+            if(icon.textContent === 'bookmark') {
+                icon.parentElement.addEventListener('click', () => {
+                    const isFilled = icon.style.fontVariationSettings.includes("'FILL' 1");
+                    icon.style.fontVariationSettings = isFilled ? "'FILL' 0" : "'FILL' 1";
+                    icon.classList.toggle('text-primary');
+                });
+            }
+        });
+    </script>
+</body></html>

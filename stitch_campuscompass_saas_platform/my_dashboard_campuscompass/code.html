@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CampusCompass | User Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=geist:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        @import url('https://fonts.cdnfonts.com/css/geist');
+        
+        body {
+            font-family: 'Geist', sans-serif;
+            background-color: #09090b; /* Base from Level 0 */
+            color: #e7e0ed;
+        }
+
+        .glass-panel {
+            background: rgba(24, 24, 27, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(39, 39, 42, 0.5);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(139, 92, 246, 0.3);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.05);
+        }
+
+        .glow-button {
+            background: linear-gradient(135deg, #d0bcff 0%, #a078ff 100%);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .glow-button:active {
+            transform: scale(0.98);
+        }
+
+        .active-indicator {
+            position: absolute;
+            left: 0;
+            width: 2px;
+            height: 24px;
+            background-color: #d0bcff;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #27272a;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#3b3742",
+                    "surface-container": "#211e27",
+                    "on-error": "#690005",
+                    "on-primary-fixed-variant": "#5516be",
+                    "secondary-fixed-dim": "#4cd7f6",
+                    "on-error-container": "#ffdad6",
+                    "secondary-container": "#03b5d3",
+                    "on-surface-variant": "#cbc3d7",
+                    "on-primary-fixed": "#23005c",
+                    "background": "#15121b",
+                    "surface-variant": "#37333d",
+                    "inverse-primary": "#6d3bd7",
+                    "on-secondary-fixed-variant": "#004e5c",
+                    "on-surface": "#e7e0ed",
+                    "outline": "#958ea0",
+                    "error-container": "#93000a",
+                    "primary-fixed": "#e9ddff",
+                    "on-tertiary": "#482900",
+                    "surface-tint": "#d0bcff",
+                    "surface-container-low": "#1d1a23",
+                    "on-tertiary-fixed": "#2c1700",
+                    "surface-container-lowest": "#0f0d15",
+                    "outline-variant": "#494454",
+                    "on-primary": "#3c0091",
+                    "on-secondary": "#003640",
+                    "secondary-fixed": "#acedff",
+                    "on-secondary-container": "#00424e",
+                    "inverse-surface": "#e7e0ed",
+                    "tertiary": "#ffb869",
+                    "tertiary-container": "#ca801e",
+                    "on-tertiary-container": "#3f2300",
+                    "on-secondary-fixed": "#001f26",
+                    "surface-dim": "#15121b",
+                    "surface-container-highest": "#37333d",
+                    "surface": "#15121b",
+                    "secondary": "#4cd7f6",
+                    "primary": "#d0bcff",
+                    "error": "#ffb4ab",
+                    "inverse-on-surface": "#322f39",
+                    "on-background": "#e7e0ed",
+                    "on-primary-container": "#340080",
+                    "tertiary-fixed": "#ffdcbb",
+                    "primary-container": "#a078ff",
+                    "primary-fixed-dim": "#d0bcff",
+                    "tertiary-fixed-dim": "#ffb869",
+                    "surface-container-high": "#2c2832",
+                    "on-tertiary-fixed-variant": "#673d00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "80px",
+                    "xs": "8px",
+                    "lg": "48px",
+                    "base": "4px",
+                    "margin-mobile": "16px",
+                    "sm": "16px",
+                    "margin-desktop": "32px",
+                    "md": "24px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-md": ["geist"],
+                    "headline-lg-mobile": ["geist"],
+                    "body-lg": ["geist"],
+                    "label-md": ["geist"],
+                    "body-md": ["geist"],
+                    "label-sm": ["geist"],
+                    "headline-lg": ["geist"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "headline-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-surface-dim overflow-hidden">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-surface-container/80 backdrop-blur-md border-b border-outline-variant/20 shadow-sm h-20">
+<div class="flex justify-between items-center px-margin-desktop h-full w-full max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-lg">
+<span class="text-headline-md font-headline-lg font-bold text-on-surface tracking-tight">CampusCompass</span>
+<nav class="hidden md:flex items-center gap-md">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 text-label-md font-label-md" href="#">Colleges</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 text-label-md font-label-md" href="#">Compare</a>
+<a class="text-primary font-semibold border-b-2 border-primary pb-1 text-label-md font-label-md" href="#">Dashboard</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 text-label-md font-label-md" href="#">About</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<button class="text-on-surface-variant font-medium hover:text-primary text-label-md font-label-md">Login</button>
+<button class="glow-button px-md py-xs rounded-lg text-on-primary-container font-semibold text-label-md font-label-md">Get Started</button>
+</div>
+</div>
+</header>
+<div class="flex h-screen pt-20">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-20 h-[calc(100vh-80px)] w-64 flex flex-col z-40 bg-surface-container-low border-r border-outline-variant/30 transition-all duration-300">
+<!-- Header Identity -->
+<div class="p-md flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-primary-container/20 border border-primary/20">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEnNwpawUtjKurC8Ue6htKNkhRLwDlUy-lUD67Fruahj2JYw1BC42isIPPsQxKx6uY2kjuAMFxgyGDPwX_UhI9tnf8AnYGpMZ_EaWeP38V0_MdhTjxjJTSDdPEMV5z3Dys3GdHigJe9d2LrF840g3kR2xMCfECuvxHz4iQ106c_-JdLiz3IgTtWrTSOZsneDd5U4N6-nPebAPiY6lI4BGILcMINseF5TEFqzbuH8dwwJl-Qed0wP-LUUwwe42piJdl_9ZBCH7Ajas"/>
+</div>
+<div class="flex flex-col">
+<span class="text-on-surface font-semibold text-body-md font-body-md">Alex Rivers</span>
+<span class="text-on-surface-variant text-label-sm font-label-sm">Premium Member</span>
+</div>
+</div>
+<!-- Main Nav -->
+<nav class="flex-1 mt-md">
+<div class="relative flex items-center gap-sm px-md py-sm text-primary bg-primary-container/10 border-l-2 border-primary opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</div>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-variant/50 hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="text-label-md font-label-md">Discovery</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-variant/50 hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span class="text-label-md font-label-md">Analytics</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-variant/50 hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+<span class="text-label-md font-label-md">Saved</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-variant/50 hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+</nav>
+<!-- CTA & Footer -->
+<div class="p-md">
+<div class="glass-panel p-sm rounded-xl mb-md bg-primary-container/5 border border-primary/10">
+<p class="text-label-sm font-label-sm text-primary mb-xs">Unlock AI Insights</p>
+<button class="w-full py-base text-label-sm font-label-sm bg-primary/20 hover:bg-primary/30 text-primary rounded transition-colors">Upgrade to Pro</button>
+</div>
+<div class="flex flex-col gap-xs border-t border-outline-variant/10 pt-md">
+<a class="flex items-center gap-sm px-md py-xs text-on-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="help">help</span>
+<span class="text-label-sm font-label-sm">Help</span>
+</a>
+<a class="flex items-center gap-sm px-md py-xs text-on-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="logout">logout</span>
+<span class="text-label-sm font-label-sm">Logout</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-64 overflow-y-auto custom-scrollbar bg-background relative">
+<!-- Subtle atmospheric glow -->
+<div class="fixed top-1/4 -right-20 w-96 h-96 bg-primary/5 blur-[120px] rounded-full pointer-events-none"></div>
+<div class="fixed bottom-1/4 -left-20 w-80 h-80 bg-secondary/5 blur-[100px] rounded-full pointer-events-none"></div>
+<div class="p-margin-desktop max-w-7xl mx-auto space-y-lg">
+<!-- Welcome & Profile Summary -->
+<header class="flex flex-col md:flex-row justify-between items-start md:items-end gap-md">
+<div>
+<h1 class="text-headline-lg font-headline-lg text-on-surface mb-base">Welcome back, Alex.</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-2xl">You have 12 saved institutions and 3 pending comparison reports.</p>
+</div>
+<div class="glass-panel px-md py-sm rounded-xl flex items-center gap-md border border-outline-variant/20">
+<div class="text-center">
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Saved</p>
+<p class="text-headline-md font-headline-md text-primary">12</p>
+</div>
+<div class="w-px h-8 bg-outline-variant/30"></div>
+<div class="text-center">
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Reports</p>
+<p class="text-headline-md font-headline-md text-secondary">08</p>
+</div>
+</div>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Saved Colleges Section (Bento Large) -->
+<div class="md:col-span-8 space-y-md">
+<div class="flex items-center justify-between">
+<h2 class="text-headline-md font-headline-md text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-icon="bookmark">bookmark</span>
+                                Saved Colleges
+                            </h2>
+<button class="text-label-md font-label-md text-primary hover:underline">View All</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-gutter">
+<!-- College Card 1 -->
+<div class="glass-panel group relative overflow-hidden rounded-xl h-64">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 opacity-40" data-alt="An expansive view of a historic brick-built university campus with ivy-covered walls and a central clock tower. The lighting is late afternoon golden hour, casting long, dramatic shadows across manicured green lawns. The overall mood is prestigious, timeless, and serene, fitting a premium academic platform with a deep purple and black theme." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBvCTSEIMe7Kd3Mg6Iz16NxLHLjJdqablzR8Ddx6dkFSRRnbNNaAB3aiDcF_mzvEng5iH6EphPvtjq8vp_f8dFiDEKs97Q8gX-CQf7RmCp-9hCUIbJAdqv1Ry85qROqcQzcgoL5z7zj2URLkL0NRek__bNhYoYroYlBSvD8aisYBW8mgWwrMJMEIni_StysDa_ETvxIsPzwaXXeR1CA8C4jM2I63I7eyukwrhfzwun7o2bYVEu2gGUM77ZBfaLzA_R4xjCo3yIbd64')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-md w-full">
+<span class="inline-block px-xs py-0.5 rounded-full bg-secondary/10 border border-secondary/20 text-secondary text-label-sm font-label-sm mb-xs">Top Match: 98%</span>
+<h3 class="text-headline-md font-headline-md text-on-surface">Stanford University</h3>
+<p class="text-label-md font-label-md text-on-surface-variant">Stanford, CA • Private Research</p>
+</div>
+<button class="absolute top-md right-md p-xs bg-surface-container rounded-full text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined" data-icon="favorite" data-weight="fill">favorite</span>
+</button>
+</div>
+<!-- College Card 2 -->
+<div class="glass-panel group relative overflow-hidden rounded-xl h-64">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 opacity-40" data-alt="A modern architectural university building featuring large glass facades reflecting a vibrant blue sky. The scene is shot from a low angle to emphasize the grandeur of the contemporary design. High-contrast lighting highlights the sleek metallic structures, creating a tech-forward and innovative atmosphere. The palette leans into deep blacks and cool cyan tones." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCfRPKRCk3h8I-sPxS-XrenGspR3gNC5wjjbAO484M6S-NFeCmGKxT0v67Iat7FB0c9bxOStepLlZxim5VPCIJSl5KBHiRI_etFGauVpub52fIJIEIMOurRo21fnRGpavP1gInDKJLXqNKhBGiwFo70DowufxQWyIzW120A5y3q9WHnGGqvoVk7YASiZ3EvRgiUySDOeJKDbvCZvhz8xadV9LHQAjL9p1zeblIbQJxETUYV0KshGPEMkIrdn3t_tO8gltzYT17zwmw')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-md w-full">
+<span class="inline-block px-xs py-0.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-label-sm font-label-sm mb-xs">Tech Leader</span>
+<h3 class="text-headline-md font-headline-md text-on-surface">MIT</h3>
+<p class="text-label-md font-label-md text-on-surface-variant">Cambridge, MA • Private Research</p>
+</div>
+<button class="absolute top-md right-md p-xs bg-surface-container rounded-full text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined" data-icon="favorite" data-weight="fill">favorite</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Side Rail: Recent Comparisons & Profile Card -->
+<div class="md:col-span-4 space-y-lg">
+<!-- Profile Card -->
+<div class="glass-panel p-md rounded-xl border border-outline-variant/30 space-y-md">
+<div class="flex items-center gap-md">
+<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-primary">
+<img alt="Profile Large" class="w-full h-full bg-surface-container-high" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqy2KoOy8z55TL8bInqOaiTsdVPFKNCUxxORS2GKR8dOK2VF5XS2wBnqKojLJkLOIxO_o5W0gnRufEirO5jhM7OMBBJhCnh-ZU3VgkwZ7bCZgrCf9xzgMhDIZY3BQqXqf1fCyq7JBEUFRrqRPNjX08NX8EhNTfKtOq5ANKY5kFEGS7et_IFnBuKGS0ymJUBesqoDxOsk2DbseU78RoSzTO9_oRUbRifZZ5XcmU2lm9zmH5Ug3QzNE-bbEPyS3WlAMUCyp3dDB3pXU"/>
+</div>
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface leading-tight">Alex Rivers</h3>
+<p class="text-label-md font-label-md text-primary">Computer Science '25</p>
+</div>
+</div>
+<div class="pt-sm space-y-sm">
+<div class="flex justify-between text-label-sm font-label-sm">
+<span class="text-on-surface-variant">Application Progress</span>
+<span class="text-on-surface">65%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[65%] rounded-full shadow-[0_0_10px_rgba(208,188,255,0.4)]"></div>
+</div>
+</div>
+<button class="w-full py-xs border border-outline-variant/50 hover:border-primary/50 text-label-md font-label-md rounded-lg transition-colors">Edit Profile</button>
+</div>
+<!-- Comparison History -->
+<div class="space-y-md">
+<h2 class="text-headline-md font-headline-md text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="compare_arrows">compare_arrows</span>
+                                Recent Activity
+                            </h2>
+<div class="space-y-sm">
+<!-- History Item 1 -->
+<div class="glass-panel p-sm rounded-lg flex items-center justify-between hover:translate-x-1 transition-transform cursor-pointer">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
+</div>
+<div>
+<p class="text-label-md font-label-md text-on-surface">MIT vs. Stanford</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Financial Aid Comparison</p>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">2d ago</span>
+</div>
+<!-- History Item 2 -->
+<div class="glass-panel p-sm rounded-lg flex items-center justify-between hover:translate-x-1 transition-transform cursor-pointer">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+</div>
+<div>
+<p class="text-label-md font-label-md text-on-surface">Harvard Research</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Updated Admission Rate</p>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">5d ago</span>
+</div>
+<!-- History Item 3 -->
+<div class="glass-panel p-sm rounded-lg flex items-center justify-between hover:translate-x-1 transition-transform cursor-pointer opacity-70">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-on-tertiary">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</div>
+<div>
+<p class="text-label-md font-label-md text-on-surface">UCLA vs. Berkeley</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Engineering Faculty Report</p>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">1w ago</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Section -->
+<footer class="mt-xl border-t border-outline-variant/10 py-xl">
+<div class="max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-between items-center gap-md">
+<div class="space-y-sm">
+<span class="text-headline-md font-headline-md text-on-surface">CampusCompass</span>
+<p class="text-label-sm font-label-sm text-on-surface-variant">© 2024 CampusCompass Inc. All rights reserved.</p>
+</div>
+<div class="flex gap-md">
+<a class="text-on-surface-variant hover:text-secondary transition-colors text-label-sm font-label-sm" href="#">About</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors text-label-sm font-label-sm" href="#">Privacy</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors text-label-sm font-label-sm" href="#">Terms</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors text-label-sm font-label-sm" href="#">Contact</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors text-label-sm font-label-sm" href="#">GitHub</a>
+</div>
+</div>
+</footer>
+</div>
+</main>
+</div>
+<!-- Floating Action Button Contextual to Dashboard -->
+<button class="fixed bottom-margin-desktop right-margin-desktop glow-button w-14 h-14 rounded-full flex items-center justify-center shadow-2xl z-50 group">
+<span class="material-symbols-outlined text-on-primary-container text-2xl group-hover:rotate-90 transition-transform duration-300" data-icon="add">add</span>
+</button>
+<script>
+        // Micro-interaction for sidebar collapse on small screens
+        const sidebar = document.querySelector('aside');
+        const main = document.querySelector('main');
+        
+        // Horizontal scroll animation for cards (if needed)
+        document.querySelectorAll('.glass-panel').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body></html>

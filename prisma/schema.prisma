@@ -1,0 +1,191 @@
+// CollegeCompass - College Discovery Platform
+// Prisma Schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ==========================================
+// User & Authentication
+// ==========================================
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  password      String? // null for OAuth users
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  accounts         Account[]
+  sessions         Session[]
+  reviews          Review[]
+  savedColleges    SavedCollege[]
+  savedComparisons SavedComparison[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ==========================================
+// College Data Models
+// ==========================================
+
+model College {
+  id          String  @id @default(cuid())
+  name        String
+  slug        String  @unique
+  location    String // Full location string
+  city        String
+  state       String
+  type        String // IIT, NIT, IIIT, Private, State, Deemed
+  logo        String?
+  banner      String?
+  description String? @db.Text
+  website     String?
+
+  // Key metrics
+  rating      Float   @default(0)
+  established Int?
+  affiliation String? // AICTE, UGC, etc.
+
+  // Structured data stored as JSON
+  fees     Json? // { btech: 800000, mtech: 400000, mba: 1200000 }
+  ranking  Json? // { nirf: 5, qs: 150 }
+  highlights Json? // { campusSize: "500 acres", hostel: true, ... }
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  courses    Course[]
+  placements Placement[]
+  reviews    Review[]
+  savedBy    SavedCollege[]
+
+  @@index([state])
+  @@index([type])
+  @@index([rating])
+  @@index([name])
+}
+
+model Course {
+  id          String @id @default(cuid())
+  collegeId   String
+  name        String // Computer Science Engineering
+  degree      String // B.Tech, M.Tech, MBA, B.Sc, etc.
+  duration    String // 4 years
+  fees        Float? // Annual or total fees
+  feesType    String? // "annual" or "total"
+  eligibility String? @db.Text
+  seats       Int?
+
+  college College @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+
+  @@index([collegeId])
+  @@index([degree])
+}
+
+model Placement {
+  id                  String @id @default(cuid())
+  collegeId           String
+  year                Int
+  avgPackage          Float? // in LPA
+  medianPackage       Float? // in LPA
+  highestPackage      Float? // in LPA
+  lowestPackage       Float? // in LPA
+  placementPercentage Float?
+  topRecruiters       Json? // ["Google", "Microsoft", "Amazon"]
+
+  college College @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+
+  @@unique([collegeId, year])
+  @@index([collegeId])
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  collegeId String
+  userId    String
+  rating    Int // 1-5
+  title     String
+  content   String   @db.Text
+  category  String   @default("general") // academics, placements, campus, faculty, general
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  college College @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([collegeId])
+  @@index([userId])
+}
+
+// ==========================================
+// Saved Items
+// ==========================================
+
+model SavedCollege {
+  id        String   @id @default(cuid())
+  userId    String
+  collegeId String
+  savedAt   DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  college College @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, collegeId])
+  @@index([userId])
+}
+
+model SavedComparison {
+  id         String   @id @default(cuid())
+  userId     String
+  name       String // "IIT Bombay vs IIT Delhi"
+  collegeIds Json // ["id1", "id2", "id3"]
+  savedAt    DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
