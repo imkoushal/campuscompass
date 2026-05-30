@@ -1,16 +1,28 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const authError = searchParams.get("error");
+    if (authError) {
+      if (authError === "CredentialsSignin") {
+        setError("Invalid email or password");
+      } else {
+        setError("Authentication error. Please try again.");
+      }
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -125,5 +137,13 @@ export default function LoginPage() {
         Don&apos;t have an account? <Link href="/register" className="text-primary font-semibold hover:underline">Get Started</Link>
       </p>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-[80vh] flex items-center justify-center"><span className="text-on-surface-variant">Loading...</span></div>}>
+      <LoginForm />
+    </Suspense>
   );
 }
