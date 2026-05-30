@@ -78,5 +78,5 @@ export const authOptions: NextAuthOptions = {
       return true;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET || "campuscompass-fallback-secret-key-2024",
 };
